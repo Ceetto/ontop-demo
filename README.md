@@ -20,6 +20,11 @@ Stop app:
 docker compose down
 ```
 
+The database will be running on port `5432` with username and password: `postgres` and database name `games_db`
+
+The ontop sparql endpoint will run on `localhost:8080/sparql` you will have a GUI to test queries on
+`localhost:8080`.
+
 ### Pre-requisites for windows docker
 To run docker apps on windows you first need to install wsl and docker desktop. See these links for more help.
 

@@ -28,7 +28,7 @@ services:
       - ./ontop/jdbc:/opt/ontop/jdbc
     environment:
       ONTOP_ONTOLOGY_FILE: /opt/ontop/input/ontology.ttl
-      ONTOP_MAPPING_FILE: /opt/ontop/input/mappings.obda
+      ONTOP_MAPPING_FILE: /opt/ontop/input/mappings.ttl # Can use either .obda or .ttl
       ONTOP_PROPERTIES_FILE: /opt/ontop/input/ontop.properties
       ONTOP_CORS_ALLOWED_ORIGINS: "*"
       ONTOP_LAZY_INIT: "true"

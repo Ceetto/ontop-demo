@@ -1,0 +1,75 @@
+@prefix :   <http://example.org/resource/> .
+@prefix rr: <http://www.w3.org/ns/r2rml#> .
+@prefix ex:   <http://example.org/games#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+
+# --- Game Mapping ---
+:GameMapping
+    a                     rr:TriplesMap ;
+    rr:logicalTable       [ rr:sqlQuery """
+        SELECT id, title, release_date
+        FROM games
+    """ ] ;
+    rr:subjectMap         [ rr:template "http://example.org/games/game/{id}" ;
+                            rr:class    ex:Game ] ;
+    rr:predicateObjectMap [ rr:predicate ex:title ;
+                            rr:objectMap [ rr:column "title" ] ] ;
+    rr:predicateObjectMap [ rr:predicate ex:releaseDate ;
+                            rr:objectMap [ rr:column "release_date" ] ] .
+
+
+# --- Platform Mapping ---
+:PlatformMapping
+    a                     rr:TriplesMap ;
+    rr:logicalTable       [ rr:sqlQuery """
+        SELECT id, name, release_date, parent_company
+        FROM platforms
+    """ ] ;
+    rr:subjectMap         [ rr:template "http://example.org/games/platform/{id}" ;
+                            rr:class    ex:Platform ] ;
+    rr:predicateObjectMap [ rr:predicate ex:releaseDate ;
+                            rr:objectMap [ rr:column "release_date" ] ] ;
+    rr:predicateObjectMap [ rr:predicate ex:parentCompany ;
+                            rr:objectMap [ rr:column "parent_company" ] ] ;
+    rr:predicateObjectMap [ rr:predicate foaf:name ;
+                            rr:objectMap [ rr:column "name" ] ] .
+
+# --- Genre Mapping ---
+:GenreMapping
+    a                     rr:TriplesMap ;
+    rr:logicalTable       [ rr:sqlQuery """
+        SELECT id, name
+        FROM genres
+    """ ] ;
+    rr:subjectMap         [ rr:template "http://example.org/games/genre/{id}" ;
+                            rr:class    ex:Genre ] ;
+    rr:predicateObjectMap [ rr:predicate foaf:name ;
+                            rr:objectMap [ rr:column "name" ] ] .
+
+
+# --- Game-Platform Mapping ---
+:GamePlatformMapping
+    a                     rr:TriplesMap ;
+    rr:logicalTable       [ rr:sqlQuery """
+        SELECT game_id, platform_id
+        FROM game_platform
+    """ ] ;
+    rr:subjectMap         [ rr:template "http://example.org/games/game/{game_id}" ] ;
+    rr:predicateObjectMap [ rr:predicate ex:onPlatform ;
+                            rr:objectMap [ rr:template "http://example.org/games/platform/{platform_id}" ] ] .
+
+# --- Game-Genre Mapping ---
+:GameGenreMapping
+    a                     rr:TriplesMap ;
+    rr:logicalTable       [ rr:sqlQuery """
+        SELECT game_id, genre_id
+        FROM game_genre
+    """ ] ;
+    rr:subjectMap         [ rr:template "http://example.org/games/game/{game_id}" ] ;
+    rr:predicateObjectMap [ rr:predicate ex:hasGenre ;
+                            rr:objectMap [ rr:template "http://example.org/games/genre/{genre_id}" ] ] .

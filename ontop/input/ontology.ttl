@@ -1,0 +1,65 @@
+@prefix ex:   <http://example.org/games#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dct:  <http://purl.org/dc/terms/> .
+
+
+<http://example.org/games>
+    rdf:type     owl:Ontology ;
+    rdfs:label   "Demo project ontology"@en ;
+    rdfs:comment "Ontology for a demo project"@en .
+
+ex:Game
+    a            owl:Class ;
+    rdfs:label   "Game"@en ;
+    rdfs:comment "A video game, defined by title, genres, and release date."@en .
+
+
+ex:Platform
+    a            owl:Class ;
+    rdfs:label   "Platform"@en ;
+    rdfs:comment "A gaming platform or console on which games can run."@en .
+
+ex:Genre
+    a            owl:Class ;
+    rdfs:label   "Genre"@en ;
+    rdfs:comment "A gaming genre"@en .
+
+ex:title
+    a                  owl:DatatypeProperty ;
+    rdfs:label         "title"@en ;
+    rdfs:comment       "The title of a game."@en ;
+    rdfs:domain        ex:Game ;
+    rdfs:range         xsd:string ;
+    rdfs:subPropertyOf foaf:name .
+
+ex:hasGenre
+    a            owl:DatatypeProperty ;
+    rdfs:label   "genre"@en ;
+    rdfs:comment "A genre associated with a game."@en ;
+    rdfs:domain  ex:Game ;
+    rdfs:range   ex:Genre .
+
+ex:releaseDate
+    a            owl:DatatypeProperty ;
+    rdfs:label   "release date"@en ;
+    rdfs:comment "The release date of a game or platform."@en ;
+    rdfs:domain  ex:Game, ex:Platform ;
+    rdfs:range   xsd:date .
+
+ex:onPlatform
+    a            owl:ObjectProperty ;
+    rdfs:label   "available on"@en ;
+    rdfs:comment "Links a game to the platform it is available on."@en ;
+    rdfs:domain  ex:Game ;
+    rdfs:range   ex:Platform .
+
+ex:parentCompany
+    a            owl:DatatypeProperty ;
+    rdfs:label   "from company"@en ;
+    rdfs:comment "the company that made a console"@en ;
+    rdfs:domain  ex:Platform ;
+    rdfs:range   xsd:string .

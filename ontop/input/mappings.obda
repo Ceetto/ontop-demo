@@ -1,0 +1,33 @@
+[PrefixDeclaration]
+ex:	    http://example.org/games#
+foaf:	http://xmlns.com/foaf/0.1/
+xsd:	http://www.w3.org/2001/XMLSchema#
+
+[MappingDeclaration] @collection [[
+
+
+mappingId	GameMapping
+target		ex:game/{id} a ex:Game ; ex:title {title}^^xsd:string ; ex:releaseDate {release_date}^^xsd:date .
+source		SELECT id, title, release_date FROM games
+
+
+mappingId	PlatformMapping
+target		ex:platform/{id} a ex:Platform ; foaf:name {name}^^xsd:string ; ex:releaseDate {release_date}^^xsd:date ; ex:parentCompany {parent_company}^^xsd:string .
+source		SELECT id, name, release_date, parent_company FROM platforms
+
+
+mappingId	GenreMapping
+target		ex:genre/{id} a ex:Genre ; foaf:name {name}^^xsd:string .
+source		SELECT id, name FROM genres
+
+
+mappingId	GamePlatformMapping
+target		ex:game/{game_id} ex:onPlatform ex:platform/{platform_id} .
+source		SELECT game_id, platform_id FROM game_platform
+
+
+mappingId	GameGenreMapping
+target		ex:game/{game_id} ex:hasGenre ex:genre/{genre_id} .
+source		SELECT game_id, genre_id FROM game_genre
+
+]]

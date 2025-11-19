@@ -2,6 +2,9 @@
 
 This is a simple demo of ontop as part of a university project.
 
+It runs a simple postgres database and inits it with some tables and data on video games. We then put an ontop
+vkg on top of that, exposing the data as rdf via a sparql endpoint.
+
 ## How to run
 
 ### Install postgres driver for ontop

@@ -21,9 +21,10 @@ docker compose down
 ```
 
 ### Pre-requisites for windows docker
-To run docker apps on windows you first need to install wsl and docker desktop. See these links for more help
+To run docker apps on windows you first need to install wsl and docker desktop. See these links for more help.
 
 https://learn.microsoft.com/en-us/windows/wsl/install
+
 https://www.docker.com/products/docker-desktop/
 
 ## Example sparql queries
